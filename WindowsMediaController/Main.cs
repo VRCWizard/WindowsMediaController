@@ -263,12 +263,17 @@ namespace WindowsMediaController
                     try { OnMediaPropertyChanged?.Invoke(this, mediaProperties); } catch { }
                     try { MediaManagerInstance.OnAnyMediaPropertyChanged?.Invoke(this, mediaProperties); } catch { }
                 }
-                catch (System.Runtime.InteropServices.COMException ex)
+                //just remove the random crashing
+                catch (System.IO.FileNotFoundException ex)
+                {
+                    
+                }
+                catch (Exception ex)
                 {
                     // Silence error from bug https://github.com/DubyaDude/WindowsMediaController/issues/7
                     if (!ex.Message.Contains("0x800706BA"))
                     {
-                        throw;
+                      //  throw;
                     }
                 }
             }
